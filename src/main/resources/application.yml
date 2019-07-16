@@ -1,0 +1,12 @@
+
+cas:
+  client-name: myClient
+  server:
+    url: http://test.test.com:8081/demo
+  project:
+    url: http://test.test.com:8080
+spring:
+  thymeleaf:
+    enabled: true
+server:
+  port: 8080

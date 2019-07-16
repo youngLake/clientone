@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>client one login </title>
+</head>
+<body>
+<h1>client one login</h1>
+<div>
+    <form id="form" th:action="@{/clientOne/login}" method="post">
+        用户名 ： <input id="username" name="username" type="text"/><br/>
+        密  码 ： <input id="passwd" name="passwd" type="password"/><br/>
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>
