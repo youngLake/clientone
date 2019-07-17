@@ -44,6 +44,9 @@ public class CasRealm extends Pac4jRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
+        //TODO 如何获取roles和perms?
+//        info.addStringPermission(String.valueOf(commonProfile.getAttribute("perms")));
+//        info.addRole(String.valueOf(commonProfile.getAttribute("roles")));
         authInfo.addStringPermission("user");
         return authInfo;
     }

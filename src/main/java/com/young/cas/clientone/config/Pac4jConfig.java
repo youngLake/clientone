@@ -1,6 +1,7 @@
 package com.young.cas.clientone.config;
 
 import io.buji.pac4j.context.ShiroSessionStore;
+import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 import org.pac4j.cas.config.CasConfiguration;
 import org.pac4j.cas.config.CasProtocol;
 import org.pac4j.core.client.Clients;
@@ -52,7 +53,27 @@ public class Pac4jConfig {
     public CasConfiguration casConfig(){
         final CasConfiguration casConfiguration=new CasConfiguration();
         casConfiguration.setLoginUrl(casServerUrl+"/login");
-        casConfiguration.setProtocol(CasProtocol.CAS20);
+        //CAS30协议可以接受CAS server返回的attitudes
+        casConfiguration.setProtocol(CasProtocol.CAS30);
+        //如果用CAS20需要修改CAS server的 templates/protocol/2.0/casServiceValidationSuccess.html 文件 （相较于3.0）
+        //CAS20在网上搜索的设置html的都无法获取attitudes 有可能是使用了shro的代理filter而没用Cas20ProxyReceivingTicketValidationFilter导致的
+        // 待后续有空研究 先使用默认的CAS30
+        /*
+        3.0
+        <cas:attributes th:if="${not #lists.isEmpty(formattedAttributes)}">
+            <div th:each="attr : ${formattedAttributes}" th:remove="tag">
+                <div th:utext="${attr}" th:remove="tag"/>
+            </div>
+        </cas:attributes>
+        2.0
+        <cas th:if="${not #lists.isEmpty(assertion.chainedAuthentications[assertion.chainedAuthentications.size()-1].principal.attributes)}">
+            <div th:each="attr : ${assertion.chainedAuthentications[assertion.chainedAuthentications.size()-1].principal.attributes}" th:remove="tag">
+                <div th:utext="|<cas:${attr.key}>${#strings.replace(#strings.replace(attr.value,'[',''),']','')}</cas:${attr.key}>|" th:remove="tag"></div>
+            </div>
+        </cas>
+        */
+        //casConfiguration.setProtocol(CasProtocol.CAS20);
+//        casConfiguration.setDefaultTicketValidator(Cas20ProxyReceivingTicketValidationFilter);
         casConfiguration.setAcceptAnyProxy(true);
         casConfiguration.setPrefixUrl(casServerUrl+"/");
         return casConfiguration;

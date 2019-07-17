@@ -88,7 +88,7 @@ public class ShiroConfig {
         Map<String,String> filerChainDefinationMap=new LinkedHashMap<>();
         filerChainDefinationMap.put("/", "securityFilter");
         filerChainDefinationMap.put("/clientOne/logon", "securityFilter");
-        filerChainDefinationMap.put("/index", "securityFilter");
+        filerChainDefinationMap.put("/index", "securityFilter,perms[1]");
         filerChainDefinationMap.put("/callback", "callbackFilter");
 //        filerChainDefinationMap.put("/clientOne/logout", "anon");
         filerChainDefinationMap.put("/clientOne/logout", "logout");
